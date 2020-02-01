@@ -26,8 +26,8 @@ int FFmpegReader::initializeStream()
         return -1;
     }
 
-
-    logging("format %s, duration %lld us, bit_rate %lld", pFormatContext->iformat->name, pFormatContext->duration, pFormatContext->bit_rate);
+	format = pFormatContext->iformat->name;
+    logging("format %s, duration %lld us, bit_rate %lld", format.c_str(), pFormatContext->duration, pFormatContext->bit_rate);
 
 	return 0;
 }
@@ -41,10 +41,9 @@ int FFmpegReader::showStreamInfo()
         logging("ERROR could not get the stream info");
         return -1;
     }
-
+	frameRate = av_q2d(pFormatContext->streams[0]->r_frame_rate);
 	pCodecCtx = pFormatContext->streams[0]->codec;
     streamCodecParameters = pFormatContext->streams[0]->codecpar;
-	logging("AVStream->format before open coded %s", pFormatContext->iformat->name);
     logging("AVStream->time_base before open coded %d/%d", pFormatContext->streams[0]->time_base.num, pFormatContext->streams[0]->time_base.den);
     logging("AVStream->r_frame_rate before open coded %d/%d", pFormatContext->streams[0]->r_frame_rate.num, pFormatContext->streams[0]->r_frame_rate.den);
     logging("AVStream->start_time %" PRId64, pFormatContext->streams[0]->start_time);
@@ -94,6 +93,7 @@ int FFmpegReader::processframe()
 	int res;
 	int frameFinished;
 	AVPacket packet;
+	FFmpegWriter *ffmpegWriter = new FFmpegWriter((pCodecCtx->width)/2, (pCodecCtx->height)/2, frameRate, format);
 
 	while(res = av_read_frame(pFormatContext,&packet)>=0)
 	{
@@ -108,8 +108,9 @@ int FFmpegReader::processframe()
 				
 				resizeFrame(pFrame, pFrameRGB);
 				setTime();
+				ffmpegWriter->writeVideo(&resized);	
 
-				cv::imshow("display",resized);
+				//cv::imshow("display",resized);
 				cvWaitKey(5);
 				av_free_packet(&packet);
 				sws_freeContext(img_convert_ctx);

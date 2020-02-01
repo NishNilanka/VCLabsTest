@@ -15,6 +15,9 @@ class stream
 	private:
 		string mediaFile;
 		
+	protected:
+		string format;
+		int frameRate;
 			
 
 	public:

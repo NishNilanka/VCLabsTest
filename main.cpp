@@ -19,9 +19,6 @@ int main(int argc, char *argv[])
 	ffmpegReader->findDecoder();
 	ffmpegReader->processframe();
 
-	FFmpegWriter *ffmpegWriter = new FFmpegWriter();
-	//ffmpegWriter->writeVideo();
-
     return 0;
 
 
