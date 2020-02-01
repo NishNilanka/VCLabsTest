@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdio.h>
-
+#include <ctime>
+#include <locale>
 
 #include "stream.h"
 
@@ -19,9 +20,7 @@ extern "C" {
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/highgui.hpp"
 
-#include <ctime>
-#include <locale>
-static void logging(const char *fmt, ...);
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
 using namespace cv;
 using namespace std;
@@ -43,6 +42,7 @@ class streamDetails : stream
 
 
 	public:
+		void logging(const char *fmt, ...);
 		streamDetails(string mediaFile);
 		int initializeStream();
 		int showStreamInfo();

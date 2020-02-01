@@ -152,7 +152,7 @@ string streamDetails::getTime()
 }
 	
 
-static void logging(const char *fmt, ...)
+void streamDetails::logging(const char *fmt, ...)
 {
     va_list args;
     fprintf( stderr, "LOG: " );
