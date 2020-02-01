@@ -7,7 +7,7 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    if (argc < 3)
+    if (argc < 2)
     {
         printf("You need to specify a media file.\n");
         return -1;
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 	ffmpegReader->processframe();
 
 	FFmpegWriter *ffmpegWriter = new FFmpegWriter();
-	ffmpegWriter->writeVideo();
+	//ffmpegWriter->writeVideo();
 
     return 0;
 

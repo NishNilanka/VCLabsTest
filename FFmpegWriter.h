@@ -17,14 +17,15 @@ extern "C" {
 
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
-using namespace cv;
 using namespace std;
 
 class FFmpegWriter : stream
 {
 	private:
+		string outputFile;
 
 	public:
+		FFmpegWriter();
 		void writeVideo();
 
 };

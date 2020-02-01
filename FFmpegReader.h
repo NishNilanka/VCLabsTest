@@ -3,7 +3,7 @@
 #include <ctime>
 #include <locale>
 
-#include "stream.h"
+#include "FFmpegWriter.h"
 
 extern "C" {
 #include <libavutil/timestamp.h>
