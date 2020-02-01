@@ -14,6 +14,7 @@ class stream
 
 	private:
 		string mediaFile;
+		
 			
 
 	public:
